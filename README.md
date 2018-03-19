@@ -1,1 +1,1 @@
-# functional_programming_practice
+# functional-programming-practice
