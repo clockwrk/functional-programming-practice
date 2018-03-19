@@ -74,8 +74,35 @@ function limit(func, times) {
   };
 }
 
+function from(num) {
+  return function () {
+    var next  =  num;
+    num += 1;
+    return next;
+  }
+}
 
+function to(gen, num ) {
+  return function () {
+    var value = gen();
+    if(value < num) {
+      return value;
+    }
+    return undefined;
+  }
+}
 
+function fromTo(start, end) {
+  return to(from(start), end);
+}
 
+function element(array, gen) {
+  var gen = gen? gen : fromTo(0, array.length);
 
-console.log(composeb(add, mul)(2, 3, 7));
+  return function() {
+    var index = gen();
+    if (index !== undefined) {
+        return array[index];
+    }
+  }
+}
